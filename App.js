@@ -1,17 +1,18 @@
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import {useState} from "react"
+import Box from './components/Box'
 const App = () => {
   const [isConditionMet, setIsConditionMet]=useState(true)
   return (
     <View style={styles.container}>
       {/* Use a ternary operator to conditionally format the component */}
       {isConditionMet ? (
-        <Text style={styles.text}>Condition is met</Text>
+        <Box/>
       ) : (
-        <Text style={[styles.text, styles.errorText]}>Condition is not met</Text>
+        <Text style={[styles.text, styles.errorText]}>Image didnt appear</Text>
       )}
       <View>
-        <Button title='Click here' onPress={()=>{setIsConditionMet(!isConditionMet)}}></Button>
+        <Button color={isConditionMet ? ("blue"):("red")} title='Click here' onPress={()=>{setIsConditionMet(!isConditionMet)}}></Button>
       </View>
     </View>
   )
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'red', // Apply a different style for error condition
-  },
+  }
 })
 
 export default App

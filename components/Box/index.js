@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native'
 
-export default function App() {
+export default function Box() {
   return (
     <View>
+      <Image source={require('./../../assets/img1.png')}/>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-})
