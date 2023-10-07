@@ -1,16 +1,22 @@
-import { View, Text, Image } from 'react-native';
-import {useState} from "react"
-import styles from "./styles/style.js"
-import LP from './components/FlatList'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+} from 'react-native'
+import ModalComponent from './components/ModalComponent'
 const App = () => {
-  const [isShow, setIsShow]=useState(true)
   return (
-    <View style={styles.container}>
-      <Text style={{paddingTop: 110}}>Clique nos botões: </Text>
-      <LP/>
-    </View>
+    <ModalComponent/>
   )
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
 
 export default App
