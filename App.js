@@ -1,46 +1,56 @@
-import { StyleSheet,
-         Text, 
-         View, 
-         TouchableHighlight,
-         TouchableOpacity } from 'react-native';
+import {SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native'
 import {useState} from 'react'
 
-
-export default function App() {
-  const [count,setCount]=useState(0)
+const TextInputExample = () => {
+  const [text, onChangeText] = useState('Useless Text')
+  const [number, onChangeNumber] = useState('')
+  const [count, setCount]=useState(0)
+  const handlePress=()=>{
+    setCount((prevCount) => prevCount + 1)
+  }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text>Normal keyboard:</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={text}
+      />
+      <Text>Numeric keyboard:</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeNumber}
+        value={number}
+        placeholder="useless placeholder"
+        keyboardType="numeric"
+      />
       <Text>Counter: {count}</Text>
-      <TouchableHighlight onPress={()=>{setCount(count+1)}}
-        style={styles.touchable}
-        underlayColor="red"
-      >
-        <Text style={styles.text}>Click Me!</Text>
-      </TouchableHighlight>
-      <TouchableOpacity style={styles.touchable} onPress={()=>{setCount(count+1)}}>
-        <Text style={styles.text}>Click Me!</Text>
-      </TouchableOpacity>
-    </View>
+      <TouchableOpacity activeOpacity={0.2} style={styles.button} onPress={handlePress}><Text>Botão</Text></TouchableOpacity>
+    </SafeAreaView>
   )
 }
-  
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  touchable: {
-    height: 50,
-    width: 200,
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#4287f5',
-    marginBottom: 10,
   },
-  text: {
-    color: "#fff"
+  button: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "green",
+  },
+  container:{
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   }
 })
+
+export default TextInputExample
