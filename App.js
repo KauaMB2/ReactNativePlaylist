@@ -1,53 +1,24 @@
-import { ScrollView, View, Text, StyleSheet, RefreshControl } from 'react-native'
+import { View, Text, StyleSheet, StatusBar,Button } from 'react-native'
 import {useState} from 'react'
 const App = () => {
-  const [updating,setUpdate]=useState(false)
-  const update=()=>{
-    setUpdate(true)
-    setTimeout(()=>{setUpdate(false)},3000)
-  }
+  const [color,setColor]=useState("")
   return (
-    //RefreshControl is the refresh loading circle that appears above that shows the page is beeing loaded
-    <ScrollView
-    contentContainerStyle={styles.scrollView}
-    refreshControl={<RefreshControl refreshing={updating} onRefresh={update}/>}>
-      <View style={styles.container}>
-        <Text style={styles.text}>Item 1</Text>
-        <Text style={styles.text}>Item 2</Text>
-        <Text style={styles.text}>Item 3</Text>
-        <Text style={styles.text}>Item 4</Text>
-        <Text style={styles.text}>Item 5</Text>
-        <Text style={styles.text}>Item 6</Text>
-        <Text style={styles.text}>Item 7</Text>
-        <Text style={styles.text}>Item 8</Text>
-        <Text style={styles.text}>Item 1</Text>
-        <Text style={styles.text}>Item 2</Text>
-        <Text style={styles.text}>Item 3</Text>
-        <Text style={styles.text}>Item 4</Text>
-        <Text style={styles.text}>Item 5</Text>
-        <Text style={styles.text}>Item 6</Text>
-        <Text style={styles.text}>Item 7</Text>
-        <Text style={styles.text}>Item 8</Text>
-        <Text style={styles.text}>Item 1</Text>
-        <Text style={styles.text}>Item 2</Text>
-        <Text style={styles.text}>Item 3</Text>
-        <Text style={styles.text}>Item 4</Text>
-        <Text style={styles.text}>Item 5</Text>
-        <Text style={styles.text}>Item 6</Text>
-        <Text style={styles.text}>Item 7</Text>
-        <Text style={styles.text}>Item 8</Text>
-        <Text style={styles.text}>Item 1</Text>
-        <Text style={styles.text}>Item 2</Text>
-        <Text style={styles.text}>Item 3</Text>
-        <Text style={styles.text}>Item 4</Text>
-        <Text style={styles.text}>Item 5</Text>
-        <Text style={styles.text}>Item 6</Text>
-        <Text style={styles.text}>Item 7</Text>
-        <Text style={styles.text}>Item 8</Text>
-      </View>
-    </ScrollView>
-  );
-};
+    <View style={styles.container}>
+      <StatusBar
+      backgroundColor={color}
+      barStyle="default"
+      hidden={false}
+      animated={true}
+      translucent={false}
+      />
+      <Text>CFB Cursos</Text>
+      <Text>React Native Course</Text>
+      <Button title='Red' color="red" onPress={()=>{setColor("red")}}/>
+      <Button title='Green' color="green" onPress={()=>{setColor("green")}}/>
+      <Button title='Blue' color="blue" onPress={()=>{setColor("blue")}}/>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -58,11 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 20,
-  },
-  text: {
-    fontSize: 24,
-    marginBottom: 10,
-  },
-});
+  }
+})
 
 export default App;
