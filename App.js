@@ -1,73 +1,74 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Tab = createBottomTabNavigator();
-
-const HomeScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Text>CFB Cursos</Text>
-      <Button title="Chanel screen" color="red" onPress={() => navigation.navigate("Chanel")} />
-      <Button title="Courses screen" color="red" onPress={() => navigation.navigate("Courses")} />
-    </View>
-  )
-}
-
-const ChanelScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text>Chanel Screen</Text>
-      <Text>CFB Cursos</Text>
-      <Button title="Home" color="red" onPress={() => navigation.navigate("Home")} />
-    </View>
-    )
-}
-
-const CoursesScreen = ({ navigation }) => {
-  const params={ lessons: 40, creator: "Kauã" }
-  return (
-    <View style={styles.container}>
-      <Text>Click here to see about React Native course:</Text>
-      <Button title="React Native" color="red" onPress={() => navigation.navigate("ReactNativeCourse", {params})} />
-    </View>
-  )
-}
-
-const ReactNativeCourse = ({ route, navigation }) => {
-  const { lessons, creator } = route.params 
-  return (
-    <View style={styles.container}>
-      <Text>React Native!</Text>
-      <Text>Lessons: {lessons}</Text>
-      <Text>Creator: {creator}</Text>
-      <Button title="Home" color="red" onPress={() => navigation.navigate("Home")} />
-      <Button title="Come back to courses" color="red" onPress={() => navigation.goBack()} />
-    </View>
-  )
-}
+import { SafeAreaView,Text, StyleSheet, Alert } from 'react-native'
+import { useState } from 'react'
+import HeightInput from './components/HeightInput'
+import WeightInput from './components/WeightInput'
+import BtnComponent from './components/BtnComponent'
+import ImageContainer from './components/ImageContainer'
 
 const App = () => {
+  const [weight, setWeight] = useState(0)
+  const [height, setHeight] = useState(0)
+  const [result, setResult] = useState(0)
+
+  const calcImc = () => {
+    if (weight == 0 || !weight) {
+      Alert.alert("Alerta!", "Peso vazio!")
+    }
+    if (height == 0 || !height) {
+      Alert.alert("Alerta!", "Altura vazia!")
+    }
+    const r = weight / (Math.pow(height, 2))
+    setResult(r.toFixed(2))
+  }
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator initialRouteName='Home'>
-        <Tab.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
-        <Tab.Screen name="Chanel" component={ChanelScreen} options={{ title: "Chanel" }} />
-        <Tab.Screen name="Courses" component={CoursesScreen} options={{ title: "Courses" }} />
-        <Tab.Screen name="ReactNativeCourse" component={ReactNativeCourse} options={{ title: "React Native" }} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.body}>
+      <Text>Calculadora de IMC: </Text>
+      <HeightInput setHeight={setHeight} styles={styles} />
+      <WeightInput setWeight={setWeight} styles={styles}/>
+      <BtnComponent result={result} calcImc={calcImc} styles={styles}/>
+      <ImageContainer styles={styles}/>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  body: {
+    padding: 10,
+  },
+  block: {
+    marginBottom: 20,
+  },
+  text: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: "#000",
+    padding: 10,
+    borderRadius: 10,
+  },
+  btnCalc: {
+    backgroundColor: "#048",
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
+    borderRadius: 20,
   },
+  textBtn: {
+    fontSize: 15,
+    textTransform: 'uppercase',
+    color: "#fff",
+  },
+  container: {
+    marginTop: 90,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: "80%",
+    height: 200,
+  }
 })
 
-export default App;
+export default App
