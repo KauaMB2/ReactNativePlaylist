@@ -1,7 +1,9 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-const Stack = createStackNavigator()
+import * as React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -21,21 +23,21 @@ const ChanelScreen = ({ navigation }) => {
       <Text>CFB Cursos</Text>
       <Button title="Home" color="red" onPress={() => navigation.navigate("Home")} />
     </View>
-  )
+    )
 }
 
 const CoursesScreen = ({ navigation }) => {
+  const params={ lessons: 40, creator: "Kauã" }
   return (
     <View style={styles.container}>
       <Text>Click here to see about React Native course:</Text>
-      <Button title="React Native" color="red" onPress={() => navigation.navigate("ReactNativeCourse", { lessons: 40, creator: "Kauã" })} />
+      <Button title="React Native" color="red" onPress={() => navigation.navigate("ReactNativeCourse", {params})} />
     </View>
   )
 }
 
 const ReactNativeCourse = ({ route, navigation }) => {
-  const { lessons, creator } = route.params
-
+  const { lessons, creator } = route.params 
   return (
     <View style={styles.container}>
       <Text>React Native!</Text>
@@ -47,30 +49,15 @@ const ReactNativeCourse = ({ route, navigation }) => {
   )
 }
 
-
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
-        <Stack.Screen name="Home" component={HomeScreen}
-        options={{
-          title: "Home screen",
-          headerStyle: {
-            backgroundColor:"#008"
-          },
-          headerTintColor:"#fff",
-          headerRight:()=>(
-            <Button
-            title="Cursos"
-            color="#000"
-            onPress={()=>{alert("Test button")}}
-            />
-          )
-        }}/>
-        <Stack.Screen name="Chanel" component={ChanelScreen} options={{ title: "Chanel screen" }} />
-        <Stack.Screen name="Courses" component={CoursesScreen} options={{ title: "Courses screen" }} />
-        <Stack.Screen name="ReactNativeCourse" component={ReactNativeCourse} options={{ title: "React Native screen" }} />
-      </Stack.Navigator>
+      <Tab.Navigator initialRouteName='Home'>
+        <Tab.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
+        <Tab.Screen name="Chanel" component={ChanelScreen} options={{ title: "Chanel" }} />
+        <Tab.Screen name="Courses" component={CoursesScreen} options={{ title: "Courses" }} />
+        <Tab.Screen name="ReactNativeCourse" component={ReactNativeCourse} options={{ title: "React Native" }} />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }
@@ -80,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  }
+  },
 })
 
-export default App
+export default App;
